@@ -35,14 +35,42 @@
                 </div>
             </div>
             <div class="body">
+                <!-- Ano da Eleição -->
+                <div class="section" style="padding-bottom: 0; margin-bottom: 5px;">
+                    <h3>Ano Eleitoral</h3>
+                    <div class="chip-group">
+                        <button class="chip-button active" id="chipYear2002">2002</button>
+                        <button class="chip-button" id="chipYear2000">2000</button>
+                    </div>
+                </div>
+
+                <!-- Cargo e Turno -->
+                <div class="row section">
+                    <div>
+                        <h3>Cargo</h3>
+                        <select class="select" id="selectCargo">
+                            <option value="presidente" selected>Presidente</option>
+                            <option value="governador">Governador SP</option>
+                            <option value="senador">Senador SP</option>
+                        </select>
+                    </div>
+                    <div>
+                        <h3>Turno</h3>
+                        <select class="select" id="selectTurno">
+                            <option value="_1t" selected>1º Turno</option>
+                            <option value="_2t">2º Turno</option>
+                        </select>
+                    </div>
+                </div>
+
                 <!-- Busca -->
                 <div class="section" style="position:relative">
                     <h3>Buscar local</h3>
                     <div style="position:relative">
                         <input
-                            type="search"
+                            type="text"
                             id="searchInput"
-                            class="select"
+                            class="select search-icon"
                             placeholder="Escola, bairro ou município…"
                             autocomplete="off"
                             spellcheck="false"
@@ -66,18 +94,6 @@
                     "></div>
                 </div>
 
-                <!-- Cargo -->
-                <div class="section">
-                    <h3>Cargo</h3>
-                    <select class="select" id="selectCargo">
-                        <option value="presidente_1t">Presidente — 1º Turno</option>
-                        <option value="presidente_2t">Presidente — 2º Turno</option>
-                        <option value="governador_1t">Governador SP — 1º Turno</option>
-                        <option value="governador_2t">Governador SP — 2º Turno</option>
-                        <option value="senador">Senador SP</option>
-                    </select>
-                </div>
-
                 <!-- Município -->
                 <div class="section">
                     <h3>Município</h3>
@@ -86,19 +102,48 @@
                     </select>
                 </div>
 
-                <!-- Modo de Cor -->
-                <div class="section">
-                    <h3>Modo de cor</h3>
-                    <div class="chip-group">
-                        <button class="chip-button active" data-mode="solid" id="chipSolid">Cor Estática</button>
-                        <button class="chip-button" data-mode="gradient" id="chipGradient">Degradê</button>
-                    </div>
-                </div>
+                <!-- Visualização do Mapa -->
+                <div class="section viz-section" id="vizSection">
+                    <h3>Visualização do Mapa</h3>
 
-                <!-- Legenda -->
-                <div class="section" id="legendSection">
-                    <h3>Legenda</h3>
-                    <div id="legendItems"></div>
+                    <div class="viz-label">Modo de Cor</div>
+                    <div class="chip-group" style="margin-bottom:10px">
+                        <button class="chip-button active" id="chipVencedor">Vencedor</button>
+                        <button class="chip-button" id="chipVencidos">Vitórias</button>
+                        <button class="chip-button" id="chipDesempenho">Desempenho</button>
+                    </div>
+
+                    <!-- Vencedor: sub-opções de estilo -->
+                    <div id="vencedorOptions">
+                        <div class="chip-group">
+                            <button class="chip-button active" data-mode="solid" id="chipSolid">Cor Estática</button>
+                            <button class="chip-button" data-mode="gradient" id="chipGradient">Degradê</button>
+                        </div>
+                    </div>
+
+                    <!-- Desempenho: seleção de candidato + gradiente -->
+                    <div id="desempenhoOptions" style="display:none">
+                        <div class="viz-label">Candidato (para modo Desempenho)</div>
+                        <select class="select" id="selectPerfCandidate"></select>
+                        <div id="perfGradientContainer" style="margin-top:12px">
+                            <div style="position: relative; height: 16px;">
+                                <div class="gradient-bar" id="gradientBar" style="position: absolute; width: 100%; top: 0; left: 0;"></div>
+                                <input type="range" id="perfFilterSlider" class="perf-slider" min="0" max="100" step="0.1" value="0">
+                            </div>
+                            <div class="gradient-labels" style="position: relative;">
+                                <span class="gradient-label-min" id="gradientMin">▼ 0,00%</span>
+                                <span id="perfFilterLabel" style="position: absolute; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; opacity: 0; transition: opacity 0.2s;">Filtro: &ge; 0,00%</span>
+                                <span class="gradient-label-max" id="gradientMax">0,00% ▲</span>
+                            </div>
+                            <div class="perf-summary" id="perfSummary">Média: 0,00% · 0 locais</div>
+                        </div>
+                    </div>
+
+                    <!-- Vitórias: filtragem de locais vencidos por um candidato -->
+                    <div id="vencidosOptions" style="display:none">
+                        <div class="viz-label">Candidato Vencedor</div>
+                        <select class="select" id="selectVencidosCandidate"></select>
+                    </div>
                 </div>
             </div>
         </div>
