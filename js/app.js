@@ -176,7 +176,7 @@
     async function loadData() {
         if (dom.loading) dom.loading.classList.remove('hidden');
         try {
-            const fileName = state.currentYear === '2000' ? 'data/stations_2000.geojson' : 'data/stations.geojson';
+            const fileName = state.currentYear === '2000' ? 'data/EL2000_web.geojson' : 'data/stations.geojson';
             const response = await fetch(fileName);
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}`);
@@ -1114,6 +1114,14 @@
         }
     }
 
+    function getCandidateDisplayName(info, municipioName) {
+        if (!info) return 'Candidato';
+        if (state.currentCargo.startsWith('prefeito') && municipioName && municipioName.toUpperCase() !== 'SAO PAULO') {
+            return info.partido ? `Partido ${info.partido}` : 'Candidato';
+        }
+        return info.nome;
+    }
+
     function renderDetail(feature) {
         const summary = summarizeFeature(feature);
         const props = feature.properties;
@@ -1175,7 +1183,7 @@
             { label: `Nulos (${formatPercent(nullPct)})`, value: `${formatNumber(nullVotes)} votos` },
             {
                 label: 'Lideranca',
-                value: summary.winner ? `${summary.winner.info.nome} (${formatPercent(summary.winnerPct)})` : 'Sem votos'
+                value: summary.winner ? `${getCandidateDisplayName(summary.winner.info, props.municipio)} (${formatPercent(summary.winnerPct)})` : 'Sem votos'
             },
             {
                 label: 'Margem',
@@ -1240,11 +1248,11 @@
 
             card.innerHTML = `
                 <div class="cand-header">
-                    <button type="button" class="color-trigger" aria-label="Personalizar cor de ${escapeHtml(entry.info.nome)}">
+                    <button type="button" class="color-trigger" aria-label="Personalizar cor de ${escapeHtml(getCandidateDisplayName(entry.info, feature.properties.municipio))}">
                         <span class="swatch" style="background:${escapeHtml(entry.info.cor)}"></span>
                     </button>
                     <div class="cand-info">
-                        <h4>${escapeHtml(entry.info.nome)}</h4>
+                        <h4>${escapeHtml(getCandidateDisplayName(entry.info, feature.properties.municipio))}</h4>
                         <small>${escapeHtml(badge)}</small>
                     </div>
                 </div>
@@ -1259,7 +1267,7 @@
                 colorTrigger.addEventListener('click', (event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    openColorPicker(familyKey, entry.info.nome, colorTrigger);
+                    openColorPicker(familyKey, getCandidateDisplayName(entry.info, feature.properties.municipio), colorTrigger);
                 });
             }
 
@@ -1302,15 +1310,17 @@
             return `
                 <strong>${escapeHtml(titleCase(feature.properties.nome))}</strong><br>
                 <span>${escapeHtml(titleCase(feature.properties.municipio))}</span><br>
-                <span style="color:${escapeHtml(fillColor)}">${escapeHtml(candidateInfo?.nome || 'Candidato')}: ${formatPercent(pct)}</span><br>
+                <span style="color:${escapeHtml(fillColor)}">${escapeHtml(getCandidateDisplayName(candidateInfo, feature.properties.municipio))}: ${formatPercent(pct)}</span><br>
                 <span>${formatNumber(candidateVotes)} votos</span>
             `;
         }
 
         const winner = summary.winner;
         const winnerColor = getMarkerFillColor(summary);
+        
+        const displayName = winner ? getCandidateDisplayName(winner.info, feature.properties.municipio) : null;
         const subtitle = winner
-            ? `${escapeHtml(winner.info.nome)} (${escapeHtml(winner.info.partido || 'Sem partido')})`
+            ? `${escapeHtml(displayName)} (${escapeHtml(winner.info.partido || 'Sem partido')})`
             : 'Sem vencedor';
 
         const pct = winner ? formatPercent(summary.winnerPct) : '0,0%';
