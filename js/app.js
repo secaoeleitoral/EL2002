@@ -1116,10 +1116,11 @@
 
     function getCandidateDisplayName(info, municipioName) {
         if (!info) return 'Candidato';
+        if (info.nome && !info.nome.startsWith('Candidato ')) return info.nome;
         if (state.currentCargo.startsWith('prefeito') && municipioName && municipioName.toUpperCase() !== 'SAO PAULO') {
             return info.partido ? `Partido ${info.partido}` : 'Candidato';
         }
-        return info.nome;
+        return info.nome || 'Candidato';
     }
 
     function renderDetail(feature) {
@@ -1150,8 +1151,8 @@
             ].map((item) => `<span>${item}</span>`).join('');
         }
 
-        renderMetrics(summary);
-        renderCandidateCards(summary, cargoLabel);
+        renderMetrics(summary, props);
+        renderCandidateCards(summary, cargoLabel, feature);
     }
 
     function showPlaceholder() {
@@ -1166,7 +1167,7 @@
         }
     }
 
-    function renderMetrics(summary) {
+    function renderMetrics(summary, props) {
         if (!dom.metricsGrid) {
             return;
         }
@@ -1215,7 +1216,7 @@
         });
     }
 
-    function renderCandidateCards(summary, cargoLabel) {
+    function renderCandidateCards(summary, cargoLabel, feature) {
         if (!dom.candidatesGrid || !dom.btnVerMais || !dom.candidatesTitle) {
             return;
         }
@@ -1717,6 +1718,9 @@
             state.currentMunicipio = '';
             state.currentBairro = null;
             state.currentLocalId = null;
+            state.selectedFeatureId = null;
+            state.selectedFeature = null;
+            state.selectedMarker = null;
             dom.searchInput.value = '';
             if (dom.searchClear) dom.searchClear.style.display = 'none';
             dom.selectTurno.value = '_1t';
