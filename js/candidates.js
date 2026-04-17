@@ -805,6 +805,69 @@ const CANDIDATES_1998 = withColors({
     }
 });
 
+
+const CANDIDATES_1994 = withColors({
+    presidente_1t: {
+        label: 'Presidente - 1º Turno (1994)',
+        candidates: {
+            '11': { nome: 'Candidato PP',     partido: 'PP'    },
+            '12': { nome: 'Candidato PDT',    partido: 'PDT'   },
+            '13': { nome: 'Lula',             partido: 'PT'    },
+            '15': { nome: 'Candidato PMDB',   partido: 'PMDB'  },
+            '20': { nome: 'Candidato PSC',    partido: 'PSC'   },
+            '36': { nome: 'Candidato PTC',    partido: 'PTC'   },
+            '45': { nome: 'FHC',              partido: 'PSDB'  },
+            '56': { nome: 'Enéas',            partido: 'PRONA' },
+            '95': { nome: 'Brancos', partido: '', familia: 'ALT_CINZA' },
+            '96': { nome: 'Nulos',   partido: '', familia: 'ALT_CINZA' }
+        }
+    },
+    governador_1t: {
+        label: 'Governador SP - 1º Turno (1994)',
+        candidates: {
+            '12': { nome: 'Candidato PDT',    partido: 'PDT'   },
+            '13': { nome: 'José Genoíno',     partido: 'PT'    },
+            '15': { nome: 'Candidato PMDB',   partido: 'PMDB'  },
+            '20': { nome: 'Candidato PSC',    partido: 'PSC'   },
+            '36': { nome: 'Candidato PTC',    partido: 'PTC'   },
+            '39': { nome: 'Candidato PRN',    partido: 'PRN'   },
+            '45': { nome: 'Mário Covas',      partido: 'PSDB'  },
+            '56': { nome: 'Candidato PRONA',  partido: 'PRONA' },
+            '95': { nome: 'Brancos', partido: '', familia: 'ALT_CINZA' },
+            '96': { nome: 'Nulos',   partido: '', familia: 'ALT_CINZA' }
+        }
+    },
+    governador_2t: {
+        label: 'Governador SP - 2º Turno (1994)',
+        candidates: {
+            '12': { nome: 'Candidato PDT',    partido: 'PDT'   },
+            '45': { nome: 'Mário Covas',      partido: 'PSDB'  },
+            '95': { nome: 'Brancos', partido: '', familia: 'ALT_CINZA' },
+            '96': { nome: 'Nulos',   partido: '', familia: 'ALT_CINZA' }
+        }
+    },
+    senador_1t: {
+        label: 'Senador SP - 1º Turno (1994)',
+        candidates: {
+            '11': { nome: 'Candidato PP',     partido: 'PP'    },
+            '12': { nome: 'Candidato PDT',    partido: 'PDT'   },
+            '13': { nome: 'Eduardo Suplicy',  partido: 'PT'    },
+            '14': { nome: 'Candidato PTB',    partido: 'PTB'   },
+            '15': { nome: 'Candidato PMDB',   partido: 'PMDB'  },
+            '20': { nome: 'Candidato PSC',    partido: 'PSC'   },
+            '22': { nome: 'Candidato PL',     partido: 'PL'    },
+            '23': { nome: 'Candidato PPS',    partido: 'PPS'   },
+            '25': { nome: 'Candidato PFL',    partido: 'PFL'   },
+            '36': { nome: 'Candidato PTC',    partido: 'PTC'   },
+            '44': { nome: 'Candidato PRP',    partido: 'PRP'   },
+            '45': { nome: 'Candidato PSDB',   partido: 'PSDB'  },
+            '56': { nome: 'Candidato PRONA',  partido: 'PRONA' },
+            '95': { nome: 'Brancos', partido: '', familia: 'ALT_CINZA' },
+            '96': { nome: 'Nulos',   partido: '', familia: 'ALT_CINZA' }
+        }
+    }
+});
+
 function applyColorOverrides(overrides = {}) {
     Object.values(CANDIDATES).forEach((office) => {
         Object.values(office.candidates).forEach((candidate) => {

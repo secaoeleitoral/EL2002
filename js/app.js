@@ -44,7 +44,8 @@
         candidatesExpanded: false,
         vencidosCandidateCode: null,
         theme: getInitialTheme(),
-        currentYear: '2002'
+        currentYear: '2002',
+        suppressNextMapClick: false
     };
 
     const dom = {
@@ -90,6 +91,7 @@
         chipYear2002: document.getElementById('chipYear2002'),
         chipYear2000: document.getElementById('chipYear2000'),
         chipYear1998: document.getElementById('chipYear1998'),
+        chipYear1994: document.getElementById('chipYear1994'),
         chipVencedor: document.getElementById('chipVencedor'),
         chipVencidos: document.getElementById('chipVencidos'),
         chipDesempenho: document.getElementById('chipDesempenho'),
@@ -143,11 +145,188 @@
             zoomControl: true
         });
 
-        state.map.zoomControl.setPosition('topright');
+        state.map.zoomControl.setPosition('bottomright');
         updateBaseLayer();
 
         state.map.on('zoomend', handleMapZoomEnd);
         state.map.on('click', clearSelection);
+
+        setupBoxSelect();
+    }    // ── BOX SELECT ─────────────────────────────────────────────────────────────
+    function setupBoxSelect() {
+        const map = state.map;
+        const mapContainer = map.getContainer();
+
+        // Rubber-band overlay
+        const rb = document.createElement('div');
+        rb.id = 'rubberBand';
+        Object.assign(rb.style, {
+            display: 'none', position: 'absolute', zIndex: '1000',
+            pointerEvents: 'none', border: '2px dashed #3b82f6',
+            background: 'rgba(59,130,246,0.12)',
+            boxShadow: '0 0 0 1px rgba(59,130,246,0.25)'
+        });
+        mapContainer.appendChild(rb);
+
+        // Control button
+        let active = false;
+        let btnEl = null;
+
+        const BoxSelectControl = L.Control.extend({
+            options: { position: 'bottomright' },
+            onAdd() {
+                const btn = L.DomUtil.create('button', 'leaflet-bar leaflet-control box-select-btn');
+                btn.id = 'btnBoxSelect';
+                btn.title = 'Selecionar locais por arrasto';
+                btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="12" height="12" rx="1" stroke-dasharray="3 2"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>`;
+                L.DomEvent.disableClickPropagation(btn);
+                L.DomEvent.on(btn, 'click', () => {
+                    active = !active;
+                    btn.style.background = active ? 'var(--accent,#2563eb)' : '';
+                    btn.style.color      = active ? '#fff' : '';
+                    btn.classList.toggle('active-select', active);
+                    if (active) {
+                        map.dragging.disable();
+                        mapContainer.style.cursor = 'crosshair';
+                    } else {
+                        map.dragging.enable();
+                        mapContainer.style.cursor = '';
+                        rb.style.display = 'none';
+                    }
+                });
+                btnEl = btn;
+                return btn;
+            }
+        });
+        map.addControl(new BoxSelectControl());
+
+        // Drag state
+        let dragging = false;
+        let startPx, startLatLng;
+
+        function getXY(e) {
+            const r = mapContainer.getBoundingClientRect();
+            const s = e.touches ? e.touches[0] : e;
+            return { x: s.clientX - r.left, y: s.clientY - r.top };
+        }
+
+        // Mousedown on map container
+        mapContainer.addEventListener('mousedown', (e) => {
+            if (!active || e.button !== 0) return;
+            dragging = true;
+            startPx = getXY(e);
+            startLatLng = map.containerPointToLatLng([startPx.x, startPx.y]);
+            Object.assign(rb.style, {
+                display: 'block', left: startPx.x + 'px', top: startPx.y + 'px',
+                width: '0px', height: '0px'
+            });
+            e.stopPropagation();
+            e.preventDefault();
+        }, true);
+
+        // Mousemove anywhere (capture out-of-map)
+        document.addEventListener('mousemove', (e) => {
+            if (!dragging) return;
+            const cur = getXY(e);
+            const x = Math.min(cur.x, startPx.x);
+            const y = Math.min(cur.y, startPx.y);
+            Object.assign(rb.style, {
+                left: x + 'px', top: y + 'px',
+                width:  Math.abs(cur.x - startPx.x) + 'px',
+                height: Math.abs(cur.y - startPx.y) + 'px'
+            });
+        });
+
+        // Mouseup anywhere
+        document.addEventListener('mouseup', (e) => {
+            if (!dragging) return;
+            dragging = false;
+            rb.style.display = 'none';
+
+            // Compute end latLng
+            const r = mapContainer.getBoundingClientRect();
+            const endPx = { x: e.clientX - r.left, y: e.clientY - r.top };
+            const endLatLng = map.containerPointToLatLng([endPx.x, endPx.y]);
+            const bounds = L.latLngBounds(startLatLng, endLatLng);
+
+            // Deactivate mode without using btn.click() to avoid re-triggering
+            active = false;
+            if (btnEl) {
+                btnEl.style.background = '';
+                btnEl.style.color = '';
+                btnEl.classList.remove('active-select');
+            }
+            map.dragging.enable();
+            mapContainer.style.cursor = '';
+
+            // Suppress the Leaflet map click that fires after mouseup
+            state.suppressNextMapClick = true;
+
+            aggregateInBounds(bounds);
+        });
+    }
+
+    function aggregateInBounds(bounds) {
+        if (!state.markersLayer) return;
+
+        const features = [];
+        state.markersLayer.eachLayer((marker) => {
+            if (!marker._featureData) return;
+            const [lon, lat] = marker._featureData.geometry.coordinates;
+            if (bounds.contains([lat, lon])) {
+                features.push(marker._featureData);
+            }
+        });
+
+        if (!features.length) return;
+
+        const cargoData = getCandidates()[state.currentCargo] || { candidates: {} };
+        const aggregated = {};
+
+        features.forEach((feature) => {
+            const votes = feature.properties[state.currentCargo] || {};
+            for (const code in votes) {
+                aggregated[code] = (aggregated[code] || 0) + (Number(votes[code]) || 0);
+            }
+        });
+
+        const entries = Object.entries(aggregated)
+            .map(([code, total]) => {
+                const info = cargoData.candidates[code] || { nome: `Candidato ${code}`, partido: '', cor: '#737373' };
+                const isInvalid = INVALID_CODES.has(code);
+                return { code, votos: total, info: { ...info }, isInvalid };
+            })
+            .sort((a, b) => b.votos - a.votos);
+
+        const validEntries   = entries.filter((e) => !e.isInvalid);
+        const invalidEntries = entries.filter((e) => e.isInvalid);
+        const validTotal     = validEntries.reduce((s, e) => s + e.votos, 0);
+        const invalidTotal   = invalidEntries.reduce((s, e) => s + e.votos, 0);
+        const total          = validTotal + invalidTotal;
+        const winner         = validEntries[0] || null;
+        const runnerUp       = validEntries[1] || null;
+        const winnerPct      = winner && validTotal > 0 ? (winner.votos / validTotal) * 100 : 0;
+        const marginVotes    = winner ? winner.votos - (runnerUp?.votos || 0) : 0;
+        const marginPct      = validTotal > 0 ? (marginVotes / validTotal) * 100 : 0;
+
+        const munCount = {};
+        features.forEach((f) => { const m = f.properties.municipio || ''; munCount[m] = (munCount[m] || 0) + 1; });
+        const dominantMun = Object.entries(munCount).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+
+        const summary    = { entries, validEntries, invalidEntries, validTotal, invalidTotal, total, winner, runnerUp, winnerPct, marginVotes, marginPct };
+        const props      = { municipio: dominantMun, distrito: '' };
+        const cargoLabel = getCandidates()[state.currentCargo]?.label || 'Cargo';
+
+        if (dom.placeholder) dom.placeholder.style.display = 'none';
+        if (dom.localInfo)   dom.localInfo.style.display = 'block';
+        if (dom.localName)   dom.localName.textContent = `Seleção — ${features.length} local${features.length !== 1 ? 'is' : ''}`;
+        if (dom.localMeta)   dom.localMeta.innerHTML = [
+            `Municípios: ${Object.keys(munCount).map(titleCase).join(', ')}`,
+            `Soma de ${features.length} locais de votação`
+        ].map((item) => `<span>${item}</span>`).join('');
+
+        renderMetrics(summary, props);
+        renderCandidateCards(summary, cargoLabel, { properties: props });
     }
 
     function handleMapZoomEnd() {
@@ -182,16 +361,15 @@
     }
 
     function getCandidates() {
-        if (state.currentYear === '1998' && typeof CANDIDATES_1998 !== 'undefined') {
-            return CANDIDATES_1998;
-        }
+        if (state.currentYear === '1998' && typeof CANDIDATES_1998 !== 'undefined') return CANDIDATES_1998;
+        if (state.currentYear === '1994' && typeof CANDIDATES_1994 !== 'undefined') return CANDIDATES_1994;
         return CANDIDATES;
     }
 
     async function loadData() {
         if (dom.loading) dom.loading.classList.remove('hidden');
         try {
-            const fileMap = { '2000': 'data/EL2000_web.geojson', '1998': 'data/EL1998_web.geojson' };
+            const fileMap = { '2000': 'data/EL2000_web.geojson', '1998': 'data/EL1998_web.geojson', '1994': 'data/EL1994_web.geojson' };
             const fileName = fileMap[state.currentYear] || 'data/stations.geojson';
             const response = await fetch(fileName);
             if (!response.ok) {
@@ -1113,6 +1291,12 @@
     }
 
     function clearSelection() {
+        // Don't clear right after a box-select aggregation
+        if (state.suppressNextMapClick) {
+            state.suppressNextMapClick = false;
+            return;
+        }
+
         closeColorPicker();
 
         if (state.selectedMarker) {
@@ -1755,8 +1939,8 @@
         const CIDADES_2T_2000 = ['DIADEMA', 'GUARULHOS', 'MAUA', 'MOGI DAS CRUZES', 'SAO PAULO'];
         const cargo = dom.selectCargo?.value;
 
-        // 1998: senador has no 2T; presidente was won in 1T (no 2T data)
-        if (state.currentYear === '1998') {
+        // 1998/1994: senador has no 2T; presidente was won in 1T (no 2T data)
+        if (state.currentYear === '1998' || state.currentYear === '1994') {
             if (cargo === 'senador' || cargo === 'presidente') {
                 if (dom.selectTurno) { dom.selectTurno.disabled = true; dom.selectTurno.value = '_1t'; }
                 return '_1t';
@@ -1789,6 +1973,8 @@
         let combined;
         if (state.currentYear === '1998' && cargo === 'senador') {
             combined = 'senador_1t';
+        } else if (state.currentYear === '1994' && cargo === 'senador') {
+            combined = 'senador_1t';
         } else if (cargo === 'senador') {
             combined = 'senador';
         } else {
@@ -1810,6 +1996,8 @@
 
             let combined;
             if (state.currentYear === '1998' && cargo === 'senador') {
+                combined = 'senador_1t';
+            } else if (state.currentYear === '1994' && cargo === 'senador') {
                 combined = 'senador_1t';
             } else if (cargo === 'senador') {
                 combined = 'senador';
@@ -1840,11 +2028,12 @@
             dom.chipYear2002.classList.toggle('active', year === '2002');
             dom.chipYear2000.classList.toggle('active', year === '2000');
             if (dom.chipYear1998) dom.chipYear1998.classList.toggle('active', year === '1998');
+            if (dom.chipYear1994) dom.chipYear1994.classList.toggle('active', year === '1994');
 
             if (year === '2000') {
                 dom.selectCargo.innerHTML = '<option value="prefeito" selected>Prefeito</option>';
                 dom.selectTurno.disabled = false;
-            } else if (year === '1998') {
+            } else if (year === '1998' || year === '1994') {
                 dom.selectCargo.innerHTML = `
                     <option value="presidente" selected>Presidente</option>
                     <option value="governador">Governador SP</option>
@@ -1877,6 +2066,7 @@
         if (dom.chipYear2002) dom.chipYear2002.addEventListener('click', () => updateYearSelection('2002'));
         if (dom.chipYear2000) dom.chipYear2000.addEventListener('click', () => updateYearSelection('2000'));
         if (dom.chipYear1998) dom.chipYear1998.addEventListener('click', () => updateYearSelection('1998'));
+        if (dom.chipYear1994) dom.chipYear1994.addEventListener('click', () => updateYearSelection('1994'));
 
         if (dom.selectMunicipio) {
             dom.selectMunicipio.addEventListener('change', () => {
