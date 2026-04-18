@@ -27,7 +27,7 @@
         currentMunicipio: '',
         currentBairro: null,
         currentLocalId: null,
-        colorMode: 'solid',
+        colorMode: 'gradient',
         vizMode: 'vencedor',
         perfCandidateCode: null,
         perfFilterPct: 0,
@@ -91,6 +91,7 @@
         chipYear2002: document.getElementById('chipYear2002'),
         chipYear2000: document.getElementById('chipYear2000'),
         chipYear1998: document.getElementById('chipYear1998'),
+        chipYear1996: document.getElementById('chipYear1996'),
         chipYear1994: document.getElementById('chipYear1994'),
         chipVencedor: document.getElementById('chipVencedor'),
         chipVencidos: document.getElementById('chipVencidos'),
@@ -362,6 +363,7 @@
 
     function getCandidates() {
         if (state.currentYear === '1998' && typeof CANDIDATES_1998 !== 'undefined') return CANDIDATES_1998;
+        if (state.currentYear === '1996' && typeof CANDIDATES_1996 !== 'undefined') return CANDIDATES_1996;
         if (state.currentYear === '1994' && typeof CANDIDATES_1994 !== 'undefined') return CANDIDATES_1994;
         return CANDIDATES;
     }
@@ -369,7 +371,7 @@
     async function loadData() {
         if (dom.loading) dom.loading.classList.remove('hidden');
         try {
-            const fileMap = { '2000': 'data/EL2000_web.geojson', '1998': 'data/EL1998_web.geojson', '1994': 'data/EL1994_web.geojson' };
+            const fileMap = { '2000': 'data/EL2000_web.geojson', '1998': 'data/EL1998_web.geojson', '1996': 'data/EL1996_web.geojson', '1994': 'data/EL1994_web.geojson' };
             const fileName = fileMap[state.currentYear] || 'data/stations.geojson';
             const response = await fetch(fileName);
             if (!response.ok) {
@@ -670,7 +672,7 @@
                 }
             }
 
-            if (state.vizMode === 'desempenho' && state.perfCandidateCode && state.currentYear === '2000') {
+            if (state.vizMode === 'desempenho' && state.perfCandidateCode && (state.currentYear === '2000' || state.currentYear === '1996')) {
                 const entry = summary.entries.find((e) => e.code === state.perfCandidateCode);
                 if (!entry || entry.isInvalid) {
                     return;
@@ -872,14 +874,17 @@
 
                 let isInvalid = INVALID_CODES.has(code);
 
-                if (state.currentYear === '2000' && typeof MUNICIPIOS_2000 !== 'undefined') {
+                const MUNICIPIOS_ANO = state.currentYear === '1996' ? (typeof MUNICIPIOS_1996 !== 'undefined' ? MUNICIPIOS_1996 : null)
+                                     : state.currentYear === '2000' ? (typeof MUNICIPIOS_2000 !== 'undefined' ? MUNICIPIOS_2000 : null)
+                                     : null;
+                if (MUNICIPIOS_ANO) {
                     const mun = feature.properties.municipio;
-                    if (mun && MUNICIPIOS_2000[mun]) {
-                        if (MUNICIPIOS_2000[mun][code]) {
+                    if (mun && MUNICIPIOS_ANO[mun]) {
+                        if (MUNICIPIOS_ANO[mun][code]) {
                             info = {
                                 ...info,
-                                nome: MUNICIPIOS_2000[mun][code].nome,
-                                partido: MUNICIPIOS_2000[mun][code].partido
+                                nome: MUNICIPIOS_ANO[mun][code].nome,
+                                partido: MUNICIPIOS_ANO[mun][code].partido
                             };
                         } else if (code !== '95' && code !== '96') {
                             isInvalid = true;
@@ -953,20 +958,20 @@
 
         let entries = Object.entries(cargoData.candidates).filter(([code]) => !INVALID_CODES.has(code));
 
-        if (state.currentYear === '2000') {
-            if (state.currentMunicipio && typeof MUNICIPIOS_2000 !== 'undefined' && MUNICIPIOS_2000[state.currentMunicipio]) {
-                const localStr = MUNICIPIOS_2000[state.currentMunicipio];
+        if (state.currentYear === '2000' || state.currentYear === '1996') {
+            const MUNICIPIOS_ANO = state.currentYear === '1996' ? (typeof MUNICIPIOS_1996 !== 'undefined' ? MUNICIPIOS_1996 : null)
+                                 : (typeof MUNICIPIOS_2000 !== 'undefined' ? MUNICIPIOS_2000 : null);
+            if (state.currentMunicipio && MUNICIPIOS_ANO && MUNICIPIOS_ANO[state.currentMunicipio]) {
+                const localStr = MUNICIPIOS_ANO[state.currentMunicipio];
                 entries = entries
                     .filter(([code]) => localStr[code])
                     .map(([code, info]) => [code, { ...info, nome: localStr[code].nome }]);
             } else {
-                const allMuns = typeof MUNICIPIOS_2000 !== 'undefined'
-                    ? Object.keys(MUNICIPIOS_2000).filter((k) => k !== 'NM_UE')
-                    : [];
+                const allMuns = MUNICIPIOS_ANO ? Object.keys(MUNICIPIOS_ANO).filter((k) => k !== 'NM_UE') : [];
                 entries = entries
                     .filter(([code]) => {
                         if (!allMuns.length) return false;
-                        return allMuns.some((mun) => MUNICIPIOS_2000[mun] && MUNICIPIOS_2000[mun][code]);
+                        return allMuns.some((mun) => MUNICIPIOS_ANO[mun] && MUNICIPIOS_ANO[mun][code]);
                     })
                     .map(([code, info]) => [code, { ...info, nome: `Partido ${info.partido}` }]);
             }
@@ -1017,25 +1022,22 @@
 
         let entries = Object.entries(cargoData.candidates).filter(([code]) => !INVALID_CODES.has(code));
 
-        if (state.currentYear === '2000') {
-            if (state.currentMunicipio && typeof MUNICIPIOS_2000 !== 'undefined' && MUNICIPIOS_2000[state.currentMunicipio]) {
-                const localStr = MUNICIPIOS_2000[state.currentMunicipio];
+        if (state.currentYear === '2000' || state.currentYear === '1996') {
+            const MUNICIPIOS_ANO = state.currentYear === '1996' ? (typeof MUNICIPIOS_1996 !== 'undefined' ? MUNICIPIOS_1996 : null)
+                                 : (typeof MUNICIPIOS_2000 !== 'undefined' ? MUNICIPIOS_2000 : null);
+            if (state.currentMunicipio && MUNICIPIOS_ANO && MUNICIPIOS_ANO[state.currentMunicipio]) {
+                const localStr = MUNICIPIOS_ANO[state.currentMunicipio];
                 entries = entries
                     .filter(([code]) => localStr[code])
                     .map(([code, info]) => [code, { ...info, nome: localStr[code].nome }]);
             } else {
                 entries = entries
                     .filter(([code]) => {
-                        let hasData = false;
-                        if (typeof MUNICIPIOS_2000 !== 'undefined') {
-                            for (const mun in MUNICIPIOS_2000) {
-                                if (MUNICIPIOS_2000[mun] && MUNICIPIOS_2000[mun][code]) {
-                                    hasData = true;
-                                    break;
-                                }
-                            }
+                        if (!MUNICIPIOS_ANO) return false;
+                        for (const mun in MUNICIPIOS_ANO) {
+                            if (MUNICIPIOS_ANO[mun] && MUNICIPIOS_ANO[mun][code]) return true;
                         }
-                        return hasData;
+                        return false;
                     })
                     .map(([code, info]) => [code, { ...info, nome: `Partido ${info.partido}` }]);
             }
@@ -1886,11 +1888,14 @@
                 let info = cargoData.candidates[code] || { nome: `Candidato ${code}`, partido: '', cor: '#737373' };
                 let isInvalid = INVALID_CODES.has(code);
 
-                if (state.currentYear === '2000' && typeof MUNICIPIOS_2000 !== 'undefined') {
+                const MUNICIPIOS_ANO2 = state.currentYear === '1996' ? (typeof MUNICIPIOS_1996 !== 'undefined' ? MUNICIPIOS_1996 : null)
+                                      : state.currentYear === '2000' ? (typeof MUNICIPIOS_2000 !== 'undefined' ? MUNICIPIOS_2000 : null)
+                                      : null;
+                if (MUNICIPIOS_ANO2) {
                     const mun = state.currentMunicipio;
-                    if (mun && MUNICIPIOS_2000[mun]) {
-                        if (MUNICIPIOS_2000[mun][code]) {
-                            info = { ...info, nome: MUNICIPIOS_2000[mun][code].nome, partido: MUNICIPIOS_2000[mun][code].partido };
+                    if (mun && MUNICIPIOS_ANO2[mun]) {
+                        if (MUNICIPIOS_ANO2[mun][code]) {
+                            info = { ...info, nome: MUNICIPIOS_ANO2[mun][code].nome, partido: MUNICIPIOS_ANO2[mun][code].partido };
                         } else if (code !== '95' && code !== '96') {
                             isInvalid = true;
                         }
@@ -1937,6 +1942,7 @@
 
     function resolveTurnoState() {
         const CIDADES_2T_2000 = ['DIADEMA', 'GUARULHOS', 'MAUA', 'MOGI DAS CRUZES', 'SAO PAULO'];
+        const CIDADES_2T_1996 = ['SAO PAULO'];
         const cargo = dom.selectCargo?.value;
 
         // 1998/1994: senador has no 2T; presidente was won in 1T (no 2T data)
@@ -1952,6 +1958,13 @@
         if (cargo === 'senador') {
             if (dom.selectTurno) dom.selectTurno.disabled = true;
             return '';
+        }
+        if (state.currentYear === '1996' && state.currentMunicipio && !CIDADES_2T_1996.includes(state.currentMunicipio)) {
+            if (dom.selectTurno) {
+                dom.selectTurno.disabled = true;
+                if (dom.selectTurno.value === '_2t') dom.selectTurno.value = '_1t';
+            }
+            return '_1t';
         }
         if (state.currentYear === '2000' && state.currentMunicipio && !CIDADES_2T_2000.includes(state.currentMunicipio)) {
             if (dom.selectTurno) {
@@ -2028,9 +2041,10 @@
             dom.chipYear2002.classList.toggle('active', year === '2002');
             dom.chipYear2000.classList.toggle('active', year === '2000');
             if (dom.chipYear1998) dom.chipYear1998.classList.toggle('active', year === '1998');
+            if (dom.chipYear1996) dom.chipYear1996.classList.toggle('active', year === '1996');
             if (dom.chipYear1994) dom.chipYear1994.classList.toggle('active', year === '1994');
 
-            if (year === '2000') {
+            if (year === '2000' || year === '1996') {
                 dom.selectCargo.innerHTML = '<option value="prefeito" selected>Prefeito</option>';
                 dom.selectTurno.disabled = false;
             } else if (year === '1998' || year === '1994') {
@@ -2066,6 +2080,7 @@
         if (dom.chipYear2002) dom.chipYear2002.addEventListener('click', () => updateYearSelection('2002'));
         if (dom.chipYear2000) dom.chipYear2000.addEventListener('click', () => updateYearSelection('2000'));
         if (dom.chipYear1998) dom.chipYear1998.addEventListener('click', () => updateYearSelection('1998'));
+        if (dom.chipYear1996) dom.chipYear1996.addEventListener('click', () => updateYearSelection('1996'));
         if (dom.chipYear1994) dom.chipYear1994.addEventListener('click', () => updateYearSelection('1994'));
 
         if (dom.selectMunicipio) {
