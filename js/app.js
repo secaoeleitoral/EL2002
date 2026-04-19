@@ -787,6 +787,11 @@
             return '#737373';
         }
 
+        // Empate: primeiro e segundo colocados com a mesma quantidade de votos
+        if (summary.marginVotes === 0 && summary.runnerUp) {
+            return '#ffffff';
+        }
+
         if (state.colorMode === 'solid') {
             return summary.winner.info.cor;
         }
