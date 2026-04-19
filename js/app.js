@@ -1420,7 +1420,7 @@
 
         const metrics = [
             { label: 'Comparecimento', value: formatNumber(summary.total) },
-            { label: 'Votos validos', value: formatNumber(summary.validTotal) },
+            { label: 'Votos válidos', value: formatNumber(summary.validTotal) },
             { label: `Brancos (${formatPercent(blankPct)})`, value: `${formatNumber(blankVotes)} votos` },
             { label: `Nulos (${formatPercent(nullPct)})`, value: `${formatNumber(nullVotes)} votos` },
             {
