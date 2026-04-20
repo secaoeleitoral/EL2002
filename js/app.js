@@ -109,7 +109,12 @@
         perfFilterSlider: document.getElementById('perfFilterSlider'),
         perfFilterSliderMax: document.getElementById('perfFilterSliderMax'),
         rangeSelection: document.getElementById('rangeSelection'),
-        perfFilterLabel: document.getElementById('perfFilterLabel')
+        perfFilterLabel: document.getElementById('perfFilterLabel'),
+        perfStatsCard: document.getElementById('perfStatsCard'),
+        perfStatAvg: document.getElementById('perfStatAvg'),
+        perfStatMedian: document.getElementById('perfStatMedian'),
+        perfStatCount: document.getElementById('perfStatCount'),
+        perfResetBtn: document.getElementById('perfResetBtn')
     };
 
     function getInitialTheme() {
@@ -1131,6 +1136,7 @@
         let max = -Infinity;
         let sum = 0;
         let count = 0;
+        const filteredPercents = [];
 
         visibleFeatures.forEach((feature) => {
             const summary = summarizeFeature(feature);
@@ -1156,6 +1162,7 @@
                 if (pct >= state.perfFilterPct && pct <= state.perfFilterMaxPct) {
                     sum += pct;
                     count++;
+                    filteredPercents.push(pct);
                 }
             }
         });
@@ -1165,7 +1172,17 @@
             return;
         }
 
-        state.perfStats = { min, max, avg: count > 0 ? sum / count : 0, count };
+        // Calcular mediana dos valores filtrados
+        let median = 0;
+        if (filteredPercents.length > 0) {
+            filteredPercents.sort((a, b) => a - b);
+            const mid = Math.floor(filteredPercents.length / 2);
+            median = filteredPercents.length % 2 === 0
+                ? (filteredPercents[mid - 1] + filteredPercents[mid]) / 2
+                : filteredPercents[mid];
+        }
+
+        state.perfStats = { min, max, avg: count > 0 ? sum / count : 0, median, count };
     }
 
     function updatePerformanceView() {
@@ -1178,8 +1195,13 @@
             }
 
             if (dom.perfSummary) {
-                dom.perfSummary.textContent = 'Sem dados disponÃ­veis';
+                dom.perfSummary.textContent = 'Sem dados disponíveis';
             }
+
+            if (dom.perfStatAvg) dom.perfStatAvg.textContent = '—';
+            if (dom.perfStatMedian) dom.perfStatMedian.textContent = '—';
+            if (dom.perfStatCount) dom.perfStatCount.textContent = '0';
+            if (dom.perfResetBtn) dom.perfResetBtn.style.display = 'none';
 
             if (dom.perfFilterSlider) {
                 dom.perfFilterSlider.max = 0;
@@ -1217,7 +1239,30 @@
         }
 
         if (dom.perfSummary) {
-            dom.perfSummary.textContent = `MÃ©dia: ${formatPercent(stats.avg)} \u00B7 ${formatNumber(stats.count)} locais`;
+            dom.perfSummary.textContent = `Média: ${formatPercent(stats.avg)} \u00B7 ${formatNumber(stats.count)} locais`;
+        }
+
+        // Popular o novo cartão de estatísticas
+        const sliderMax = parseFloat(dom.perfFilterSliderMax?.max || 100);
+        const isFilteredNow = state.perfFilterPct > 0 || state.perfFilterMaxPct < sliderMax;
+
+        if (dom.perfStatAvg) {
+            dom.perfStatAvg.textContent = formatPercent(stats.avg);
+            dom.perfStatAvg.classList.toggle('filtered', isFilteredNow);
+        }
+
+        if (dom.perfStatMedian) {
+            dom.perfStatMedian.textContent = formatPercent(stats.median ?? 0);
+            dom.perfStatMedian.classList.toggle('filtered', isFilteredNow);
+        }
+
+        if (dom.perfStatCount) {
+            dom.perfStatCount.textContent = formatNumber(stats.count);
+            dom.perfStatCount.classList.toggle('filtered', isFilteredNow);
+        }
+
+        if (dom.perfResetBtn) {
+            dom.perfResetBtn.style.display = isFilteredNow ? 'block' : 'none';
         }
 
         if (dom.perfFilterSlider && dom.perfFilterSliderMax) {
@@ -1237,7 +1282,7 @@
         if (dom.perfFilterLabel) {
             const isFiltered = state.perfFilterPct > 0 || state.perfFilterMaxPct < parseFloat(dom.perfFilterSliderMax?.max || 100);
             if (isFiltered) {
-                dom.perfFilterLabel.textContent = `${formatPercent(state.perfFilterPct)} â€“ ${formatPercent(state.perfFilterMaxPct)}`;
+                dom.perfFilterLabel.textContent = `${formatPercent(state.perfFilterPct)} – ${formatPercent(state.perfFilterMaxPct)}`;
                 dom.perfFilterLabel.style.opacity = '1';
                 dom.perfFilterLabel.style.color = candidateInfo.cor;
             } else {
@@ -1940,9 +1985,9 @@
         if (dom.localName) dom.localName.textContent = `${bairroLabel} â€” ${features.length} locais`;
         if (dom.localMeta) {
             dom.localMeta.innerHTML = [
-                `Municipio: ${escapeHtml(munLabel)}`,
+                `Município: ${escapeHtml(munLabel)}`,
                 `Distrito: ${escapeHtml(bairroLabel)}`,
-                `Soma de ${features.length} locais de votaÃ§Ã£o`
+                `Soma de ${features.length} locais de votação`
             ].map((item) => `<span>${item}</span>`).join('');
         }
 
@@ -2219,6 +2264,18 @@
                     dom.perfFilterSliderMax.value = maxVal;
                 }
                 state.perfFilterMaxPct = maxVal;
+                updateRangeSelection();
+                renderMarkers();
+            });
+        }
+
+        if (dom.perfResetBtn) {
+            dom.perfResetBtn.addEventListener('click', () => {
+                state.perfFilterPct = 0;
+                const sliderMax = parseFloat(dom.perfFilterSliderMax?.max || 100);
+                state.perfFilterMaxPct = sliderMax;
+                if (dom.perfFilterSlider) dom.perfFilterSlider.value = 0;
+                if (dom.perfFilterSliderMax) dom.perfFilterSliderMax.value = sliderMax;
                 updateRangeSelection();
                 renderMarkers();
             });

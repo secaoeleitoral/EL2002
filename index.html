@@ -187,7 +187,34 @@
                                 <span id="perfFilterLabel" style="position: absolute; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 600; opacity: 0; transition: opacity 0.2s;"></span>
                                 <span class="gradient-label-max" id="gradientMax">0,00% ▲</span>
                             </div>
-                            <div class="perf-summary" id="perfSummary">Média: 0,00% · 0 locais</div>
+
+                            <!-- Novo: Cartão de estatísticas -->
+                            <div class="perf-stats-card" id="perfStatsCard">
+                                <div class="perf-stat">
+                                    <span class="perf-stat-label">Média</span>
+                                    <span class="perf-stat-value" id="perfStatAvg">0,00%</span>
+                                </div>
+                                <div class="perf-stat">
+                                    <span class="perf-stat-label">Mediana</span>
+                                    <span class="perf-stat-value" id="perfStatMedian">0,00%</span>
+                                </div>
+                                <div class="perf-stat">
+                                    <span class="perf-stat-label">Locais</span>
+                                    <span class="perf-stat-value" id="perfStatCount">0</span>
+                                </div>
+                            </div>
+
+                            <!-- Botão de reset -->
+                            <button
+                                id="perfResetBtn"
+                                type="button"
+                                class="perf-reset-btn"
+                                style="display:none"
+                                title="Limpar filtro de desempenho"
+                            >↺ Limpar filtro</button>
+
+                            <!-- Resumo legado (mantido oculto para compatibilidade) -->
+                            <div class="perf-summary" id="perfSummary" style="display:none">Média: 0,00% · 0 locais</div>
                         </div>
                     </div>
 
