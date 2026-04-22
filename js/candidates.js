@@ -927,170 +927,919 @@ const CANDIDATES_1996 = withColors({
 });
 
 const MUNICIPIOS_1996 = {
-    "PIRAPORA DO BOM JESUS": {
-        "45": { "nome": "Antonio Miguel Silveira Bueno", "partido": "PSDB" },
-        "40": { "nome": "Carlim Garcia Subrinho", "partido": "PSB" }
-    },
-    "SANTA ISABEL": {
-        "15": { "nome": "Maria Angela Sanches", "partido": "PMDB" },
-        "45": { "nome": "Geraldo Edyman Rodrigues de Sa", "partido": "PSDB" },
-        "13": { "nome": "Maria Aparecida Ferraz de Souza", "partido": "PT" },
-        "40": { "nome": "Paulo Cesar de Almeida", "partido": "PSB" },
-        "16": { "nome": "Israel do Nascimento", "partido": "PSTU" },
-        "11": { "nome": "Alvaro Luis Boniotti Varella", "partido": "PPB" }
-    },
-    "CAJAMAR": {
-        "12": { "nome": "Jose David Pereira", "partido": "PDT" },
-        "14": { "nome": "Antonio Carlos Oliveira Ribas", "partido": "PTB" },
-        "13": { "nome": "Jose Gilson Pereira Silva", "partido": "PT" }
-    },
-    "RIO GRANDE DA SERRA": {
-        "27": { "nome": "Vicente Joao de Rago", "partido": "PSDC" },
-        "13": { "nome": "Joel de Lima Cesar", "partido": "PT" },
-        "14": { "nome": "Aparecido Benedito Franco", "partido": "PTB" },
-        "45": { "nome": "Jose de Souza", "partido": "PSDB" },
-        "11": { "nome": "Valmir Ferreira", "partido": "PPB" },
-        "43": { "nome": "Jose Lourenco dos Santos", "partido": "PV" }
-    },
-    "DIADEMA": {
-        "13": { "nome": "Jose Augusto da Silva Ramos", "partido": "PT" },
-        "40": { "nome": "Gilson Luiz Correia de Menezes", "partido": "PSB" },
-        "16": { "nome": "Ronaldo dos Santos Silva", "partido": "PSTU" },
-        "20": { "nome": "Wilson Ferreira Braga", "partido": "PSC" },
-        "14": { "nome": "Luiz Paulo Salgado", "partido": "PTB" }
-    },
-    "FERRAZ DE VASCONCELOS": {
-        "11": { "nome": "Alcides Alberto Gentil de Laet", "partido": "PPB" },
-        "41": { "nome": "Ibrahim Tanios Abi Chedid", "partido": "PSD" },
-        "15": { "nome": "Jose Carlos Abissamra", "partido": "PMDB" },
-        "13": { "nome": "Espedito Pereira de Lima", "partido": "PT" },
-        "45": { "nome": "Waldemar Marques de Oliveira Filho", "partido": "PSDB" },
-        "36": { "nome": "Lucas de Mello", "partido": "PRN" }
-    },
-    "EMBU DAS ARTES": {
-        "45": { "nome": "Brigida Sacramento Carvalho dos Santos", "partido": "PSDB" },
-        "15": { "nome": "Paulo Cezar Martins", "partido": "PMDB" },
-        "12": { "nome": "Nivaldo Orlandi", "partido": "PDT" },
-        "22": { "nome": "Benedito Adao Rosa", "partido": "PL" },
-        "41": { "nome": "Oscar Yazbek", "partido": "PSD" }
-    },
-    "FRANCISCO MORATO": {
-        "11": { "nome": "Rubens Soares", "partido": "PPB" },
-        "45": { "nome": "Walfrido Tiburcio", "partido": "PSDB" },
-        "13": { "nome": "Adailton Alves Santana", "partido": "PT" },
-        "12": { "nome": "Luiz Carlos dos Reis", "partido": "PDT" },
-        "25": { "nome": "Liro de Souza Maia", "partido": "PFL" },
-        "17": { "nome": "Waldeson Claudino da Silva", "partido": "PSL" }
-    },
-    "FRANCO DA ROCHA": {
-        "14": { "nome": "Jose Benedito Hernandez", "partido": "PTB" },
-        "13": { "nome": "Antonio Lopes da Silva", "partido": "PT" },
-        "16": { "nome": "Jose Donizetti de Almeida", "partido": "PSTU" },
-        "45": { "nome": "Widerson Tadeu Anzelotti", "partido": "PSDB" }
-    },
-    "GUARULHOS": {
-        "12": { "nome": "Nefi Tales", "partido": "PDT" },
-        "13": { "nome": "Carlos Chnaiderman", "partido": "PT" },
-        "45": { "nome": "Carlos Roberto de Campos", "partido": "PSDB" },
-        "11": { "nome": "Paschoal Thomeu", "partido": "PPB" },
-        "23": { "nome": "Marina Angelo", "partido": "PPS" },
-        "41": { "nome": "Ailton de Paula Campos", "partido": "PSD" },
-        "16": { "nome": "Manoel Jose de Alencar Filho", "partido": "PSTU" }
-    },
-    "ITAPECERICA DA SERRA": {
-        "18": { "nome": "Humberto Biserra da Silva", "partido": "PST" },
-        "45": { "nome": "Lacir Ferreira Baldusco", "partido": "PSDB" },
-        "70": { "nome": "Fabio Luis Santos", "partido": "PTdoB" },
-        "27": { "nome": "Jose Paulo Pereira", "partido": "PSDC" },
-        "23": { "nome": "Vicente Leite de Sousa", "partido": "PPS" },
-        "43": { "nome": "Jorge Jose da Costa", "partido": "PV" }
-    },
-    "BIRITIBA MIRIM": {
-        "13": { "nome": "Hernani de Freitas Prado Pereira Garcia", "partido": "PT" },
-        "14": { "nome": "Luiz Masuo Yatsugafu", "partido": "PTB" },
-        "30": { "nome": "Jose Maria de Siqueira", "partido": "PGT" },
-        "22": { "nome": "Benedito Freitas", "partido": "PL" }
-    },
-    "JANDIRA": {
-        "17": { "nome": "Gilberto de Brito", "partido": "PSL" },
-        "23": { "nome": "Nelcino Fernandes Dias", "partido": "PPS" },
-        "45": { "nome": "Walderi Braz Paschoalin", "partido": "PSDB" },
-        "41": { "nome": "Marcio Ricardo Fonseca", "partido": "PSD" },
-        "13": { "nome": "Paulo Henrique Barjud", "partido": "PT" },
-        "40": { "nome": "Augusto Cesar Florestano", "partido": "PSB" }
-    },
-    "CAIEIRAS": {
-        "15": { "nome": "Isaura Ferreira Neves Pereira", "partido": "PMDB" },
-        "22": { "nome": "Nelson Fiore", "partido": "PL" },
-        "25": { "nome": "Pedro Sergio Graf Nunes", "partido": "PFL" },
-        "11": { "nome": "Carlos Augusto de Castro", "partido": "PPB" },
-        "13": { "nome": "Jose Carlos Miranda", "partido": "PT" }
-    },
-    "JUQUITIBA": {
-        "20": { "nome": "Luiz Carlos Ribeiro Pinto", "partido": "PSC" },
-        "25": { "nome": "Ayres Scorsatto", "partido": "PFL" },
-        "11": { "nome": "Jose Victor Vieira", "partido": "PPB" },
-        "12": { "nome": "Emir Antonio Rodrigues Garcia", "partido": "PDT" }
-    },
-    "OSASCO": {
-        "25": { "nome": "Antonio Cesar de Oliveira Braga", "partido": "PFL" },
-        "33": { "nome": "Ivan Cacao", "partido": "PMN" },
-        "16": { "nome": "Messias Americo da Silva", "partido": "PSTU" },
-        "13": { "nome": "Joao Paulo Cunha", "partido": "PT" },
-        "12": { "nome": "Carlos Fernando Zuppo Franco", "partido": "PDT" },
-        "14": { "nome": "Silas Bortolosso", "partido": "PTB" },
-        "45": { "nome": "Jose Masci de Abreu", "partido": "PSDB" }
-    },
-    "VARGEM GRANDE PAULISTA": {
-        "23": { "nome": "Antonio Joao Cardoso Ribeiro", "partido": "PPS" },
-        "44": { "nome": "Maria do Socorro Batista de Souza", "partido": "PRP" },
-        "43": { "nome": "Gilberto Gomes", "partido": "PV" },
-        "25": { "nome": "Oscar de Freitas Cavalcante", "partido": "PFL" },
-        "12": { "nome": "Roberto Rocha", "partido": "PDT" },
-        "45": { "nome": "Antonio Manoel da Silva", "partido": "PSDB" }
+    "ARUJA": {
+        "12": {
+            "nome": "Dorival Jose Da Silva",
+            "partido": "PDT"
+        },
+        "15": {
+            "nome": "Genesio Severino Da Silva",
+            "partido": "PMDB"
+        },
+        "22": {
+            "nome": "Abel Jose Larini",
+            "partido": "PL"
+        },
+        "17": {
+            "nome": "Dino Fiore Capo",
+            "partido": "PSL"
+        },
+        "14": {
+            "nome": "Joao Pedro Dos Santos",
+            "partido": "PTB"
+        }
     },
     "BARUERI": {
-        "30": { "nome": "Waldete Alves Rodrigues", "partido": "PGT" },
-        "45": { "nome": "Jorge Marcelo Barbara de Oliveira", "partido": "PSDB" },
-        "25": { "nome": "Gilberto Macedo Gil Arantes", "partido": "PFL" },
-        "17": { "nome": "Gilberto Pires Franco", "partido": "PSL" },
-        "12": { "nome": "Joao Amancio da Conceicao", "partido": "PDT" }
+        "30": {
+            "nome": "Waldete Alves Rodrigues",
+            "partido": "PGT"
+        },
+        "45": {
+            "nome": "Jorge Marcelo Barbara De Oliveira",
+            "partido": "PSDB"
+        },
+        "25": {
+            "nome": "Gilberto Macedo Gil Arantes",
+            "partido": "PFL"
+        },
+        "17": {
+            "nome": "Gilberto Pires Franco",
+            "partido": "PSL"
+        },
+        "12": {
+            "nome": "Joao Amancio Da Conceicao",
+            "partido": "PDT"
+        }
     },
-    "ITAPEVI": {
-        "14": { "nome": "Sonia Regina de Oliveira Salvarani", "partido": "PTB" },
-        "12": { "nome": "Lazaro Toledo Queiroz Filho", "partido": "PDT" },
-        "44": { "nome": "Pedro Jorge Moreira Nery", "partido": "PRP" },
-        "27": { "nome": "Nilson Cardoso Neves", "partido": "PSDC" },
-        "45": { "nome": "Sergio Montanheiro", "partido": "PSDB" }
+    "BIRITIBA MIRIM": {
+        "13": {
+            "nome": "Hernani De Freitas Prado Pereira Garcia",
+            "partido": "PT"
+        },
+        "14": {
+            "nome": "Luiz Masuo Yatsugafu",
+            "partido": "PTB"
+        },
+        "30": {
+            "nome": "Jose Maria De Siqueira",
+            "partido": "PGT"
+        },
+        "22": {
+            "nome": "Benedito Freitas",
+            "partido": "PL"
+        }
     },
-    "SUZANO": {
-        "13": { "nome": "Ana Medeiros dos Santos", "partido": "PT" },
-        "45": { "nome": "Vagner Alfredo Zapponi", "partido": "PSDB" },
-        "25": { "nome": "Estevam Galvao de Oliveira", "partido": "PFL" }
+    "CAIEIRAS": {
+        "15": {
+            "nome": "Isaura Ferreira Neves Pereira",
+            "partido": "PMDB"
+        },
+        "22": {
+            "nome": "Nelson Fiore",
+            "partido": "PL"
+        },
+        "25": {
+            "nome": "Pedro Sergio Graf Nunes",
+            "partido": "PFL"
+        },
+        "11": {
+            "nome": "Carlos Augusto De Castro",
+            "partido": "PPB"
+        },
+        "13": {
+            "nome": "Jose Carlos Miranda",
+            "partido": "PT"
+        }
     },
-    "ITAQUAQUECETUBA": {
-        "11": { "nome": "Ronaldo Vlademir Ferreira", "partido": "PPB" },
-        "13": { "nome": "Vera da Penha Rodrigues", "partido": "PT" },
-        "14": { "nome": "Antonio Carlos Mendonca", "partido": "PTB" },
-        "15": { "nome": "Mario Luiz Moreno", "partido": "PMDB" },
-        "40": { "nome": "Edson Ferreira Silva", "partido": "PSB" },
-        "41": { "nome": "Antonio Claudio Viana", "partido": "PSD" }
+    "CAJAMAR": {
+        "12": {
+            "nome": "Jose David Pereira",
+            "partido": "PDT"
+        },
+        "14": {
+            "nome": "Antonio Carlos Oliveira Ribas De Andrade",
+            "partido": "PTB"
+        },
+        "13": {
+            "nome": "Jose Gilson Pereira Silva",
+            "partido": "PT"
+        }
+    },
+    "CARAPICUIBA": {
+        "11": {
+            "nome": "Antonio Da Cunha Lima",
+            "partido": "PPB"
+        },
+        "12": {
+            "nome": "Jose Roberto De Abreu",
+            "partido": "PDT"
+        },
+        "13": {
+            "nome": "Maria Francisca Cardoso",
+            "partido": "PT"
+        },
+        "30": {
+            "nome": "Francisco Dos Santos",
+            "partido": "PGT"
+        },
+        "70": {
+            "nome": "Domingos Soares De Freitas",
+            "partido": "PT do B"
+        },
+        "25": {
+            "nome": "Jorge Ikeda",
+            "partido": "PFL"
+        },
+        "22": {
+            "nome": "Milton Jose Cavalcanti Chagas",
+            "partido": "PL"
+        }
     },
     "COTIA": {
-        "13": { "nome": "Valter Maioral", "partido": "PT" },
-        "43": { "nome": "Edinice Rute Lacava", "partido": "PV" },
-        "45": { "nome": "Antonio Mansur", "partido": "PSDB" },
-        "44": { "nome": "Joaquim Felizardo de Souza", "partido": "PRP" },
-        "14": { "nome": "Benedicto Carlos Pedroso", "partido": "PTB" },
-        "16": { "nome": "Jose Milton Cardoso de Moura", "partido": "PSTU" },
-        "27": { "nome": "Jose de Sa", "partido": "PSDC" },
-        "11": { "nome": "Gilson Jose Lins de Araujo", "partido": "PPB" },
-        "25": { "nome": "Mario Dias Ribeiro", "partido": "PFL" }
+        "13": {
+            "nome": "Valter Maioral",
+            "partido": "PT"
+        },
+        "43": {
+            "nome": "Edinice Rute Lacava",
+            "partido": "PV"
+        },
+        "45": {
+            "nome": "Antonio Mansur",
+            "partido": "PSDB"
+        },
+        "44": {
+            "nome": "Joaquim Felizardo De Souza",
+            "partido": "PRP"
+        },
+        "14": {
+            "nome": "Benedicto Carlos Pedroso",
+            "partido": "PTB"
+        },
+        "16": {
+            "nome": "Jose Milton Cardoso De Moura",
+            "partido": "PSTU"
+        },
+        "27": {
+            "nome": "Jose De Sa",
+            "partido": "PSDC"
+        },
+        "11": {
+            "nome": "Gilson Jose Lins De Araujo",
+            "partido": "PPB"
+        },
+        "25": {
+            "nome": "Mario Dias Ribeiro",
+            "partido": "PFL"
+        }
+    },
+    "DIADEMA": {
+        "13": {
+            "nome": "Jose Augusto Da Silva Ramos",
+            "partido": "PT"
+        },
+        "40": {
+            "nome": "Gilson Luiz Correia De Menezes",
+            "partido": "PSB"
+        },
+        "16": {
+            "nome": "Ronaldo Dos Santos Silva",
+            "partido": "PSTU"
+        },
+        "20": {
+            "nome": "Wilson Ferreira Braga",
+            "partido": "PSC"
+        },
+        "14": {
+            "nome": "Luiz Paulo Salgado",
+            "partido": "PTB"
+        }
+    },
+    "EMBU DAS ARTES": {
+        "45": {
+            "nome": "Brigida Sacramento Carvalho Dos Santos",
+            "partido": "PSDB"
+        },
+        "15": {
+            "nome": "Paulo Cezar Martins",
+            "partido": "PMDB"
+        },
+        "12": {
+            "nome": "Nivaldo Orlandi",
+            "partido": "PDT"
+        },
+        "22": {
+            "nome": "Benedito Adao Rosa",
+            "partido": "PL"
+        },
+        "41": {
+            "nome": "Oscar Yazbek",
+            "partido": "PSD"
+        }
+    },
+    "EMBU GUACU": {
+        "12": {
+            "nome": "Walter Antonio Marques",
+            "partido": "PDT"
+        },
+        "14": {
+            "nome": "Sergio Andrade",
+            "partido": "PTB"
+        },
+        "45": {
+            "nome": "Antonio Lopes Sueiro Filho",
+            "partido": "PSDB"
+        },
+        "15": {
+            "nome": "Wilson Schunck Cazac",
+            "partido": "PMDB"
+        },
+        "13": {
+            "nome": "Eriovaldo Da Silveira Chaves",
+            "partido": "PT"
+        },
+        "25": {
+            "nome": "Murilo Batista Filho",
+            "partido": "PFL"
+        },
+        "33": {
+            "nome": "Jose Sergio Silvestre",
+            "partido": "PMN"
+        }
+    },
+    "FERRAZ DE VASCONCELOS": {
+        "11": {
+            "nome": "Alcides Alberto Gentil De Laet",
+            "partido": "PPB"
+        },
+        "41": {
+            "nome": "Ibrahim Tanios Abi Chedid",
+            "partido": "PSD"
+        },
+        "15": {
+            "nome": "Jose Carlos Abissamra",
+            "partido": "PMDB"
+        },
+        "13": {
+            "nome": "Espedito Pereira De Lima",
+            "partido": "PT"
+        },
+        "45": {
+            "nome": "Waldemar Marques De Oliveira Filho",
+            "partido": "PSDB"
+        },
+        "36": {
+            "nome": "Lucas De Mello",
+            "partido": "PRN"
+        }
+    },
+    "FRANCISCO MORATO": {
+        "11": {
+            "nome": "Rubens Soares",
+            "partido": "PPB"
+        },
+        "45": {
+            "nome": "Walfrido Tiburcio",
+            "partido": "PSDB"
+        },
+        "13": {
+            "nome": "Adailton Alves Santana",
+            "partido": "PT"
+        },
+        "12": {
+            "nome": "Luiz Carlos Dos Reis",
+            "partido": "PDT"
+        },
+        "25": {
+            "nome": "Liro De Souza Maia",
+            "partido": "PFL"
+        },
+        "17": {
+            "nome": "Waldeson Claudino Da Silva",
+            "partido": "PSL"
+        }
+    },
+    "FRANCO DA ROCHA": {
+        "14": {
+            "nome": "Jose Benedito Hernandez",
+            "partido": "PTB"
+        },
+        "13": {
+            "nome": "Antonio Lopes Da Silva",
+            "partido": "PT"
+        },
+        "16": {
+            "nome": "Jose Donizetti De Almeida",
+            "partido": "PSTU"
+        },
+        "45": {
+            "nome": "Widerson Tadeu Anzelotti",
+            "partido": "PSDB"
+        }
     },
     "GUARAREMA": {
-        "41": { "nome": "Raimundo Ramos", "partido": "PSD" },
-        "25": { "nome": "Claudio Ferraraz", "partido": "PFL" },
-        "22": { "nome": "Conceicao Aparecida Alvino de Souza", "partido": "PL" }
+        "41": {
+            "nome": "Raimundo Ramos",
+            "partido": "PSD"
+        },
+        "25": {
+            "nome": "Claudio Ferraraz",
+            "partido": "PFL"
+        },
+        "22": {
+            "nome": "Conceicao Aparecida Alvino De Souza",
+            "partido": "PL"
+        }
+    },
+    "GUARULHOS": {
+        "12": {
+            "nome": "Nefi Tales",
+            "partido": "PDT"
+        },
+        "13": {
+            "nome": "Carlos Chnaiderman",
+            "partido": "PT"
+        },
+        "45": {
+            "nome": "Carlos Roberto De Campos",
+            "partido": "PSDB"
+        },
+        "11": {
+            "nome": "Paschoal Thomeu",
+            "partido": "PPB"
+        },
+        "23": {
+            "nome": "Marina Angelo",
+            "partido": "PPS"
+        },
+        "41": {
+            "nome": "Ailton De Paula Campos",
+            "partido": "PSD"
+        },
+        "16": {
+            "nome": "Manoel Jose De Alencar Filho",
+            "partido": "PSTU"
+        }
+    },
+    "ITAPECERICA DA SERRA": {
+        "18": {
+            "nome": "Humberto Biserra Da Silva",
+            "partido": "PST"
+        },
+        "45": {
+            "nome": "Lacir Ferreira Baldusco",
+            "partido": "PSDB"
+        },
+        "70": {
+            "nome": "Fabio Luis Santos",
+            "partido": "PT do B"
+        },
+        "27": {
+            "nome": "Jose Paulo Pereira",
+            "partido": "PSDC"
+        },
+        "23": {
+            "nome": "Vicente Leite De Sousa",
+            "partido": "PPS"
+        },
+        "43": {
+            "nome": "Jorge Jose Da Costa",
+            "partido": "PV"
+        }
+    },
+    "ITAPEVI": {
+        "14": {
+            "nome": "Sonia Regina De Oliveira Salvarani",
+            "partido": "PTB"
+        },
+        "12": {
+            "nome": "Lazaro Toledo Queiroz Filho",
+            "partido": "PDT"
+        },
+        "44": {
+            "nome": "Pedro Jorge Moreira Nery",
+            "partido": "PRP"
+        },
+        "27": {
+            "nome": "Nilson Cardoso Neves",
+            "partido": "PSDC"
+        },
+        "45": {
+            "nome": "Sergio Montanheiro",
+            "partido": "PSDB"
+        }
+    },
+    "ITAQUAQUECETUBA": {
+        "11": {
+            "nome": "Ronaldo Vlademir Ferreira",
+            "partido": "PPB"
+        },
+        "13": {
+            "nome": "Vera Da Penha Rodrigues",
+            "partido": "PT"
+        },
+        "14": {
+            "nome": "Antonio Carlos Mendonca",
+            "partido": "PTB"
+        },
+        "15": {
+            "nome": "Mario Luiz Moreno",
+            "partido": "PMDB"
+        },
+        "40": {
+            "nome": "Edson Ferreira Silva",
+            "partido": "PSB"
+        },
+        "41": {
+            "nome": "Antonio Claudio Viana",
+            "partido": "PSD"
+        }
+    },
+    "JANDIRA": {
+        "17": {
+            "nome": "Gilberto De Brito",
+            "partido": "PSL"
+        },
+        "23": {
+            "nome": "Nelcino Fernandes Dias",
+            "partido": "PPS"
+        },
+        "45": {
+            "nome": "Walderi Braz Paschoalin",
+            "partido": "PSDB"
+        },
+        "41": {
+            "nome": "Marcio Ricardo Fonseca",
+            "partido": "PSD"
+        },
+        "13": {
+            "nome": "Paulo Henrique Barjud",
+            "partido": "PT"
+        },
+        "40": {
+            "nome": "Augusto Cesar Florestano",
+            "partido": "PSB"
+        }
+    },
+    "JUQUITIBA": {
+        "20": {
+            "nome": "Luiz Carlos Ribeiro Pinto",
+            "partido": "PSC"
+        },
+        "25": {
+            "nome": "Ayres Scorsatto",
+            "partido": "PFL"
+        },
+        "11": {
+            "nome": "Jose Victor Vieira",
+            "partido": "PPB"
+        },
+        "12": {
+            "nome": "Emir Antonio Rodrigues Garcia",
+            "partido": "PDT"
+        }
+    },
+    "MAIRIPORA": {
+        "13": {
+            "nome": "Essio Minozzi Junior",
+            "partido": "PT"
+        },
+        "43": {
+            "nome": "Mario Cesar Lopes Do Nascimento",
+            "partido": "PV"
+        },
+        "40": {
+            "nome": "Arlindo Carpi",
+            "partido": "PSB"
+        },
+        "18": {
+            "nome": "Chafic Jabali",
+            "partido": "PST"
+        }
+    },
+    "MAUA": {
+        "21": {
+            "nome": "Maria De Fatima Ferreira De Souza",
+            "partido": "PCB"
+        },
+        "15": {
+            "nome": "Paulo Soares Bio",
+            "partido": "PMDB"
+        },
+        "13": {
+            "nome": "Oswaldo Dias",
+            "partido": "PT"
+        },
+        "45": {
+            "nome": "Leonel Damo",
+            "partido": "PSDB"
+        }
+    },
+    "MOGI DAS CRUZES": {
+        "22": {
+            "nome": "Waldemar Costa Filho",
+            "partido": "PL"
+        },
+        "41": {
+            "nome": "Francisco Moacir Bezerra De Melo Filho",
+            "partido": "PSD"
+        },
+        "33": {
+            "nome": "Marcos Roberto Damasio Da Silva",
+            "partido": "PMN"
+        },
+        "13": {
+            "nome": "Ana Maria De Paula",
+            "partido": "PT"
+        }
+    },
+    "OSASCO": {
+        "25": {
+            "nome": "Antonio Cesar De Oliveira Braga",
+            "partido": "PFL"
+        },
+        "33": {
+            "nome": "Ivan Cacao",
+            "partido": "PMN"
+        },
+        "16": {
+            "nome": "Messias Americo Da Silva",
+            "partido": "PSTU"
+        },
+        "13": {
+            "nome": "Joao Paulo Cunha",
+            "partido": "PT"
+        },
+        "12": {
+            "nome": "Carlos Fernando Zuppo Franco",
+            "partido": "PDT"
+        },
+        "14": {
+            "nome": "Silas Bortolosso",
+            "partido": "PTB"
+        },
+        "45": {
+            "nome": "Jose Masci De Abreu",
+            "partido": "PSDB"
+        }
+    },
+    "PIRAPORA DO BOM JESUS": {
+        "45": {
+            "nome": "Antonio Miguel Silveira Bueno",
+            "partido": "PSDB"
+        },
+        "40": {
+            "nome": "Carlim Garcia Subrinho",
+            "partido": "PSB"
+        }
+    },
+    "POA": {
+        "25": {
+            "nome": "Wagner Mantarano",
+            "partido": "PFL"
+        },
+        "41": {
+            "nome": "Jorge Francisco Correa Allen",
+            "partido": "PSD"
+        },
+        "44": {
+            "nome": "Jose Wilson Cavaletti",
+            "partido": "PRP"
+        },
+        "45": {
+            "nome": "Boanerges Neves Panao",
+            "partido": "PSDB"
+        },
+        "40": {
+            "nome": "Julio Cesar Da Silva",
+            "partido": "PSB"
+        },
+        "43": {
+            "nome": "Ezildo D Avila",
+            "partido": "PV"
+        }
+    },
+    "RIBEIRAO PIRES": {
+        "13": {
+            "nome": "Maria Ines Soares Freire",
+            "partido": "PT"
+        },
+        "16": {
+            "nome": "Jose Cantidio De Souza Lima",
+            "partido": "PSTU"
+        },
+        "44": {
+            "nome": "Roberto Massanobu Tokuzumi",
+            "partido": "PRP"
+        },
+        "20": {
+            "nome": "Antonio Bespalec",
+            "partido": "PSC"
+        },
+        "45": {
+            "nome": "Jorge Luiz Mitidiero Bussamra",
+            "partido": "PSDB"
+        },
+        "25": {
+            "nome": "Dalton Hamada",
+            "partido": "PFL"
+        }
+    },
+    "RIO GRANDE DA SERRA": {
+        "27": {
+            "nome": "Vicente Joao De Rago",
+            "partido": "PSDC"
+        },
+        "13": {
+            "nome": "Joel De Lima Cesar",
+            "partido": "PT"
+        },
+        "14": {
+            "nome": "Aparecido Benedito Franco",
+            "partido": "PTB"
+        },
+        "45": {
+            "nome": "Jose De Souza",
+            "partido": "PSDB"
+        },
+        "11": {
+            "nome": "Valmir Ferreira",
+            "partido": "PPB"
+        },
+        "43": {
+            "nome": "Jose Lourenco Dos Santos",
+            "partido": "PV"
+        }
+    },
+    "SALESOPOLIS": {
+        "14": {
+            "nome": "Joao Marcos De Miranda",
+            "partido": "PTB"
+        },
+        "41": {
+            "nome": "Jose Rodrigues Feital Filho",
+            "partido": "PSD"
+        },
+        "25": {
+            "nome": "Francisco Rodrigues Correa",
+            "partido": "PFL"
+        }
+    },
+    "SANTA ISABEL": {
+        "15": {
+            "nome": "Maria Angela Sanches",
+            "partido": "PMDB"
+        },
+        "45": {
+            "nome": "Geraldo Edyman Rodrigues De Sales",
+            "partido": "PSDB"
+        },
+        "13": {
+            "nome": "Maria Aparecida Ferraz De Souza",
+            "partido": "PT"
+        },
+        "40": {
+            "nome": "Paulo Cesar De Almeida",
+            "partido": "PSB"
+        },
+        "16": {
+            "nome": "Israel Do Nascimento",
+            "partido": "PSTU"
+        },
+        "11": {
+            "nome": "Alvaro Luis Boniotti Varella",
+            "partido": "PPB"
+        }
+    },
+    "SANTANA DE PARNAIBA": {
+        "15": {
+            "nome": "Francisco Gurgel Rodrigues",
+            "partido": "PMDB"
+        },
+        "17": {
+            "nome": "Luiz Iwanaga",
+            "partido": "PSL"
+        },
+        "25": {
+            "nome": "Silvio Roberto Cavalcanti Peccioli",
+            "partido": "PFL"
+        },
+        "41": {
+            "nome": "Nivaldo Aparecido Prandini",
+            "partido": "PSD"
+        },
+        "45": {
+            "nome": "Agnaldo Benites Moreno",
+            "partido": "PSDB"
+        }
+    },
+    "SANTO ANDRE": {
+        "15": {
+            "nome": "Jose Francisco De Araujo",
+            "partido": "PMDB"
+        },
+        "13": {
+            "nome": "Celso Augusto Daniel",
+            "partido": "PT"
+        },
+        "14": {
+            "nome": "Duilio Pisaneschi",
+            "partido": "PTB"
+        },
+        "40": {
+            "nome": "Jose Carlos Pereira Da Silva",
+            "partido": "PSB"
+        },
+        "16": {
+            "nome": "Edgard Fernandes Neto",
+            "partido": "PSTU"
+        },
+        "17": {
+            "nome": "Luiz Carlos Lozio",
+            "partido": "PSL"
+        },
+        "45": {
+            "nome": "Joaquim Da Silva Boaventura",
+            "partido": "PSDB"
+        }
+    },
+    "SAO BERNARDO DO CAMPO": {
+        "13": {
+            "nome": "Wagner Lino Alves",
+            "partido": "PT"
+        },
+        "25": {
+            "nome": "Antonio Tito Costa",
+            "partido": "PFL"
+        },
+        "14": {
+            "nome": "Waldir Cartola Dos Santos",
+            "partido": "PTB"
+        },
+        "29": {
+            "nome": "Alda Maria Dos Santos Baleiro",
+            "partido": "PCO"
+        },
+        "43": {
+            "nome": "Roberto Serrati",
+            "partido": "PV"
+        },
+        "19": {
+            "nome": "Guilherme Napoleao De Abreu",
+            "partido": "PTN"
+        },
+        "45": {
+            "nome": "Mauricio Soares De Almeida",
+            "partido": "PSDB"
+        }
+    },
+    "SAO CAETANO DO SUL": {
+        "12": {
+            "nome": "Edison Roberto Parra",
+            "partido": "PDT"
+        },
+        "45": {
+            "nome": "Claudio Demambro",
+            "partido": "PSDB"
+        },
+        "13": {
+            "nome": "Vera Lucia Severiano",
+            "partido": "PT"
+        },
+        "14": {
+            "nome": "Luiz Olinto Tortorello",
+            "partido": "PTB"
+        }
+    },
+    "SAO LOURENCO DA SERRA": {
+        "13": {
+            "nome": "Jose Ricardo Abufares",
+            "partido": "PT"
+        },
+        "25": {
+            "nome": "Joao De Camargo",
+            "partido": "PFL"
+        },
+        "45": {
+            "nome": "Lener Do Nascimento Ribeiro",
+            "partido": "PSDB"
+        }
+    },
+    "SAO PAULO": {
+        "12": {
+            "nome": "Francisco Rossi De Almeida",
+            "partido": "PDT"
+        },
+        "16": {
+            "nome": "Valerio Arcary",
+            "partido": "PSTU"
+        },
+        "28": {
+            "nome": "Jose Levy Fidelix Da Cruz",
+            "partido": "PRTB"
+        },
+        "20": {
+            "nome": "Pedro De Camillo Netto",
+            "partido": "PSC"
+        },
+        "45": {
+            "nome": "Jose Serra",
+            "partido": "PSDB"
+        },
+        "15": {
+            "nome": "Jose Aristodemo Pinotti",
+            "partido": "PMDB"
+        },
+        "19": {
+            "nome": "Dorival Masci De Abreu",
+            "partido": "PTN"
+        },
+        "11": {
+            "nome": "Celso Roberto Pitta Do Nascimento",
+            "partido": "PPB"
+        },
+        "44": {
+            "nome": "Carlos Alves De Souza",
+            "partido": "PRP"
+        },
+        "14": {
+            "nome": "Antonio Carlos De Campos Machado",
+            "partido": "PTB"
+        },
+        "13": {
+            "nome": "Luiza Erundina De Sousa",
+            "partido": "PT"
+        }
+    },
+    "SUZANO": {
+        "13": {
+            "nome": "Ana Medeiros Dos Santos",
+            "partido": "PT"
+        },
+        "45": {
+            "nome": "Vagner Alfredo Zapponi",
+            "partido": "PSDB"
+        },
+        "25": {
+            "nome": "Estevam Galvao De Oliveira",
+            "partido": "PFL"
+        }
+    },
+    "TABOAO DA SERRA": {
+        "33": {
+            "nome": "Jose Maria E Silva",
+            "partido": "PMN"
+        },
+        "45": {
+            "nome": "Evilasio Cavalcante Farias",
+            "partido": "PSDB"
+        },
+        "13": {
+            "nome": "Irineu Casemiro Pereira",
+            "partido": "PT"
+        },
+        "22": {
+            "nome": "Henrique Matteucci Neto",
+            "partido": "PL"
+        },
+        "23": {
+            "nome": "Erik Augusto Vaz",
+            "partido": "PPS"
+        },
+        "11": {
+            "nome": "Fernando Fernandes Filho",
+            "partido": "PPB"
+        },
+        "15": {
+            "nome": "Paulo Silas Alvarenga De Melo",
+            "partido": "PMDB"
+        }
+    },
+    "VARGEM GRANDE PAULISTA": {
+        "23": {
+            "nome": "Antonio Joao Cardoso Ribeiro",
+            "partido": "PPS"
+        },
+        "44": {
+            "nome": "Maria Do Socorro Batista De Souza",
+            "partido": "PRP"
+        },
+        "43": {
+            "nome": "Gilberto Gomes",
+            "partido": "PV"
+        },
+        "25": {
+            "nome": "Oscar De Freitas Cavalcant",
+            "partido": "PFL"
+        },
+        "12": {
+            "nome": "Roberto Rocha",
+            "partido": "PDT"
+        },
+        "45": {
+            "nome": "Antonio Manoel Da Silva",
+            "partido": "PSDB"
+        }
     }
 };
 
